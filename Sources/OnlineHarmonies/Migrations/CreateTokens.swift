@@ -12,6 +12,8 @@ struct CreateTokens: AsyncMigration {
         try await database.schema("tokens")
             .id()
             .field("color", .string, .required)
+            .field("space_type", .string, .required)
+            .field("space_id", .uuid, .required)
             .create()
     }
     

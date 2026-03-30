@@ -17,6 +17,12 @@ final class Token: Model, @unchecked Sendable {
     @Field(key: "color")
     var color: TokenColor
     
+    @Field(key: "space_type")
+    var spaceType: SpaceType
+    
+    @Field(key: "space_id")
+    var spaceId: UUID
+    
     init() { }
     
     init(id: UUID? = nil, color: TokenColor) {
@@ -25,7 +31,6 @@ final class Token: Model, @unchecked Sendable {
     }
 }
 
-
 enum TokenColor: String, Codable {
     case blue
     case gray
@@ -33,4 +38,10 @@ enum TokenColor: String, Codable {
     case green
     case yellow
     case red
+}
+
+enum SpaceType: String, Codable {
+    case pouch
+    case centralBoard
+    case personalBoard
 }
