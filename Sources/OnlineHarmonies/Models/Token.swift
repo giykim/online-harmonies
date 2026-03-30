@@ -5,8 +5,8 @@
 //  Created by Giyoung Kim on 3/29/26.
 //
 
-import Vapor
 import Fluent
+import Foundation
 
 final class Token: Model, @unchecked Sendable {
     static let schema = "tokens"
