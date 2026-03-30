@@ -6,9 +6,9 @@
 //
 
 import Fluent
-import Foundation
+import Vapor
 
-final class Token: Model, @unchecked Sendable {
+final class Token: Model, Content, @unchecked Sendable {
     static let schema = "tokens"
     
     @ID(key: .id)
@@ -17,11 +17,11 @@ final class Token: Model, @unchecked Sendable {
     @Field(key: "color")
     var color: TokenColor
     
-    @Field(key: "space_type")
-    var spaceType: SpaceType
+    @OptionalField(key: "space_type")
+    var spaceType: SpaceType?
     
-    @Field(key: "space_id")
-    var spaceId: UUID
+    @OptionalField(key: "space_id")
+    var spaceId: UUID?
     
     init() { }
     
@@ -41,7 +41,6 @@ enum TokenColor: String, Codable {
 }
 
 enum SpaceType: String, Codable {
-    case pouch
     case centralBoard
     case personalBoard
 }

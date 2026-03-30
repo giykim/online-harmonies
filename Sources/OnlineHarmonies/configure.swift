@@ -15,6 +15,8 @@ public func configure(_ app: Application) async throws {
     app.migrations.add(CreateCentralBoardSpaces())
     app.migrations.add(CreateTokens())
 
+    try await app.autoMigrate()
+
     app.views.use(.leaf)
 
     // register routes
