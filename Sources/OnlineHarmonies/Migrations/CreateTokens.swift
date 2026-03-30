@@ -8,14 +8,14 @@
 import Fluent
 
 struct CreateTokens: AsyncMigration {
-    func prepare(on database: Database) async throws {
+    func prepare(on database: any Database) async throws {
         try await database.schema("tokens")
             .id()
             .field("color", .string, .required)
             .create()
     }
     
-    func revert(on database: Database) async throws {
+    func revert(on database: any Database) async throws {
         try await database.schema("tokens").delete()
     }
 }
