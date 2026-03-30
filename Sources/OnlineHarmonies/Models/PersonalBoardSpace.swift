@@ -15,17 +15,17 @@ final class PersonalBoardSpace: Model, @unchecked Sendable {
     var id: UUID?
     
     @Field(key: "column")
-    var column: Int
+    var column: Int8
     
     @Field(key: "row")
-    var row: Int
+    var row: Int8
     
     @Field(key: "player_id")
     var player_id: UUID
     
     init() { }
     
-    init(id: UUID? = nil, column: Int, row: Int, player_id: UUID) {
+    init(id: UUID? = nil, column: Int8, row: Int8, player_id: UUID) {
         self.id = id
         self.column = column
         self.row = row
