@@ -20,7 +20,7 @@ struct CreatePersonalBoardSpaces: AsyncMigration {
         for row in 1...5 {
             let num_columns = row % 2 == 0 ? 5 : 4
             for column in 1...num_columns {
-                let space = PersonalBoardSpace(row: row, column: column, player_id: UUID())
+                let space = PersonalBoardSpace(row: row, column: column, playerId: UUID())
                 try await space.save(on: database)
             }
         }

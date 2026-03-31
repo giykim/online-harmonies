@@ -13,6 +13,7 @@ public func configure(_ app: Application) async throws {
 
     app.migrations.add(CreatePlayers())
     app.migrations.add(CreateGameSessions())
+    app.migrations.add(CreateGameSessionPlayers())
     app.migrations.add(CreatePersonalBoardSpaces())
     app.migrations.add(CreateCentralBoardSpaces())
     app.migrations.add(CreateTokens())
