@@ -14,5 +14,13 @@ final class GameSession: Model, @unchecked Sendable {
     @ID(key: .id)
     var id: UUID?
     
+    @Field(key: "is_active")
+    var isActive: Bool
+    
     init() { }
+    
+    init(id: UUID? = nil, isActive: Bool) {
+        self.id = id
+        self.isActive = isActive
+    }
 }

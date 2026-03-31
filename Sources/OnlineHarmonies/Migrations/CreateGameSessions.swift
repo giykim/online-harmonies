@@ -11,6 +11,7 @@ struct CreateGameSessions: AsyncMigration {
     func prepare(on database: any Database) async throws {
         try await database.schema(GameSession.schema)
             .id()
+            .field("is_active", .bool, .required)
             .create()
     }
     
