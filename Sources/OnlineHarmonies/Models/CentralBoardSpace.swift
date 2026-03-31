@@ -15,7 +15,12 @@ final class CentralBoardSpace: Model, @unchecked Sendable {
     var id: UUID?
     
     @Field(key: "slot")
-    var slot: Int8
+    var slot: Int
     
     init() { }
+    
+    init(id: UUID? = nil, slot: Int) {
+        self.id = id
+        self.slot = slot
+    }
 }

@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <h1>#(title)</h1>
+</head>
+
+<body>
+    #for(token in tokens):
+        <p>
+            ID: #(token.id) | Color: #(token.color) | Space Type: #(token.spaceType) | Space ID: #(token.spaceId)
+        </p>
+    #endfor
+</body>
+</html>

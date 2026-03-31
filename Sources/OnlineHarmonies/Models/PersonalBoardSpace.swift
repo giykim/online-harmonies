@@ -14,21 +14,21 @@ final class PersonalBoardSpace: Model, @unchecked Sendable {
     @ID(key: .id)
     var id: UUID?
     
-    @Field(key: "column")
-    var column: Int8
-    
     @Field(key: "row")
-    var row: Int8
+    var row: Int
+    
+    @Field(key: "column")
+    var column: Int
     
     @Field(key: "player_id")
     var player_id: UUID
     
     init() { }
     
-    init(id: UUID? = nil, column: Int8, row: Int8, player_id: UUID) {
+    init(id: UUID? = nil, row: Int, column: Int, player_id: UUID) {
         self.id = id
-        self.column = column
         self.row = row
+        self.column = column
         self.player_id = player_id
     }
 }

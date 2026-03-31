@@ -13,6 +13,11 @@ struct CreateCentralBoardSpaces: AsyncMigration {
             .id()
             .field("slot", .int8, .required)
             .create()
+        
+        for slot in 1...5 {
+            let space = CentralBoardSpace(slot: slot)
+            try await space.save(on: database)
+        }
     }
     
     func revert(on database: any Database) async throws {
