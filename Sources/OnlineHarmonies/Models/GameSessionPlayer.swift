@@ -14,17 +14,17 @@ final class GameSessionPlayer: Model, @unchecked Sendable {
     @ID(key: .id)
     var id: UUID?
     
-    @Field(key: "game_session_id")
-    var gameSessionId: UUID
+    @Parent(key: "game_session_id")
+    var gameSession: GameSession
     
-    @Field(key: "player_id")
-    var playerId: UUID
+    @Parent(key: "player_id")
+    var player: Player
     
     init() { }
     
-    init(id: UUID? = nil, gameSessionId: UUID, playerId: UUID) {
+    init(id: UUID? = nil, gameSessionID: UUID, playerID: UUID) {
         self.id = id
-        self.gameSessionId = gameSessionId
-        self.playerId = playerId
+        self.$gameSession.id = gameSessionID
+        self.$player.id = playerID
     }
 }
