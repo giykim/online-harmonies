@@ -9,7 +9,7 @@ import Fluent
 
 struct CreateCentralBoardSpaces: AsyncMigration {
     func prepare(on database: any Database) async throws {
-        try await database.schema("central_board_spaces")
+        try await database.schema(CentralBoardSpace.schema)
             .id()
             .field("slot", .int8, .required)
             .create()
@@ -21,6 +21,6 @@ struct CreateCentralBoardSpaces: AsyncMigration {
     }
     
     func revert(on database: any Database) async throws {
-        try await database.schema("central_board_spaces").delete()
+        try await database.schema(CentralBoardSpace.schema).delete()
     }
 }

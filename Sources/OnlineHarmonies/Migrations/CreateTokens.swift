@@ -9,7 +9,7 @@ import Fluent
 
 struct CreateTokens: AsyncMigration {
     func prepare(on database: any Database) async throws {
-        try await database.schema("tokens")
+        try await database.schema(Token.schema)
             .id()
             .field("color", .string, .required)
             .field("space_type", .string)
@@ -34,6 +34,6 @@ struct CreateTokens: AsyncMigration {
     }
     
     func revert(on database: any Database) async throws {
-        try await database.schema("tokens").delete()
+        try await database.schema(Token.schema).delete()
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 
 struct CreatePersonalBoardSpaces: AsyncMigration {
     func prepare(on database: any Database) async throws {
-        try await database.schema("personal_board_spaces")
+        try await database.schema(PersonalBoardSpace.schema)
             .id()
             .field("row", .int8, .required)
             .field("column", .int8, .required)
@@ -27,6 +27,6 @@ struct CreatePersonalBoardSpaces: AsyncMigration {
     }
     
     func revert(on database: any Database) async throws {
-        try await database.schema("personal_board_spaces").delete()
+        try await database.schema(PersonalBoardSpace.schema).delete()
     }
 }
