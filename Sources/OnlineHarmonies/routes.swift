@@ -16,7 +16,7 @@ func routes(_ app: Application) throws {
     }
     
     app.get("tokens") { req async throws -> View in
-        let tokens = try await Token.query(on: req.db).all()
+        let tokens = try await Token.query(on: req.db).with(\.$gameSession).all()
         let context = TokensContext(title: "Tokens Count", tokens: tokens)
         return try await req.view.render("tokens_display", context)
     }

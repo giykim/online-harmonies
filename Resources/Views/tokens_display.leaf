@@ -7,7 +7,7 @@
 <body>
     #for(token in tokens):
         <p>
-            ID: #(token.id) | Color: #(token.color) | Space Type: #(token.spaceType) | Space ID: #(token.spaceId)
+            ID: #(token.id) | Game Session Id: #(token.gameSession.id) | Color: #(token.color) | Space Type: #(token.spaceType) | Space ID: #(token.spaceId)
         </p>
     #endfor
 </body>

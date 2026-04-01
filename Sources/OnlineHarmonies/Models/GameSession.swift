@@ -6,9 +6,9 @@
 //
 
 import Fluent
-import Foundation
+import Vapor
 
-final class GameSession: Model, @unchecked Sendable {
+final class GameSession: Model, Content, @unchecked Sendable {
     static let schema = "game_sessions"
     
     @ID(key: .id)
