@@ -14,6 +14,9 @@ final class Token: Model, Content, @unchecked Sendable {
     @ID(key: .id)
     var id: UUID?
     
+    @Parent(key: "game_session_id")
+    var gameSession: GameSession
+    
     @Field(key: "color")
     var color: TokenColor
     
@@ -25,8 +28,9 @@ final class Token: Model, Content, @unchecked Sendable {
     
     init() { }
     
-    init(id: UUID? = nil, color: TokenColor) {
+    init(id: UUID? = nil, gameSessionId: UUID, color: TokenColor) {
         self.id = id
+        self.$gameSession.id = gameSessionId
         self.color = color
     }
 }
