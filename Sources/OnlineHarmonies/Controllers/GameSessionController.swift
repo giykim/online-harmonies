@@ -12,6 +12,8 @@ struct GameSessionController: RouteCollection {
     func boot(routes: any RoutesBuilder) {
         let sessions = routes.grouped("sessions")
         sessions.post("create", use: createSession)
+        
+        routes.get("game", ":sessionId", use: getGame)
     }
     
     func createSession(req: Request) async throws -> GameSession {
@@ -42,5 +44,15 @@ struct GameSessionController: RouteCollection {
                 try await token.save(on: database)
             }
         }
+    }
+    
+    func getGame(req: Request) async throws -> View {
+        let sessionId = req.parameters.get("sessionId")!
+        
+        let context = [
+            "sessionId": sessionId
+        ]
+        
+        return try await req.view.render("game", context)
     }
 }
