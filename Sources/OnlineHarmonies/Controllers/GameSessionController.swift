@@ -13,7 +13,9 @@ struct GameSessionController: RouteCollection {
         let sessions = routes.grouped("sessions")
         sessions.post("create", use: createSession)
         
-        routes.get("game", ":sessionId", use: getGame)
+        let games = routes.grouped("games")
+        games.get(":sessionId", use: getGame)
+        games.webSocket(":sessionId", "ws", onUpgrade: handleWebSocket)
     }
     
     func createSession(req: Request) async throws -> GameSession {
@@ -54,5 +56,16 @@ struct GameSessionController: RouteCollection {
         ]
         
         return try await req.view.render("game", context)
+    }
+    
+    func handleWebSocket(req: Request, ws: WebSocket) async {
+        guard let sessionId = req.parameters.get("sessionId", as: UUID.self) else {
+            try? await ws.close()
+            return
+        }
+        
+        ws.onClose.whenComplete { _ in
+            print("Client disconnected from session \(sessionId)")
+        }
     }
 }
