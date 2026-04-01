@@ -7,22 +7,27 @@
 <body>
     <h1>#(title)</h1>
     <button onclick="createGame()">Host Game</button>
-
-    #for(token in tokens):
-        <p>
-            ID: #(token.id) | Game Session Id: #(token.gameSession.id) | Color: #(token.color) | Space Type: #(token.spaceType) | Space ID: #(token.spaceId)
-        </p>
-    #endfor
+    
+    <input type="text" id="username" placeholder="Enter username" />
+    <button onclick="createPlayer()">Set username</button>
 
     <script>
         async function createGame() {
             const response = await fetch("/sessions/create", {
-                method: "POST",
+                method: "POST"
             })
             
             const session = await response.json()
             
             window.location.href = "/game/" + session.id
+        }
+        
+        async function createPlayer() {
+            const response = await fetch("/players/create", {
+                method: "POST"
+            })
+            
+            const player = await response.json()
         }
     </script>
 </body>

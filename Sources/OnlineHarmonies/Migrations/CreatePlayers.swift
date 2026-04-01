@@ -11,6 +11,7 @@ struct CreatePlayers: AsyncMigration {
     func prepare(on database: any Database) async throws {
         try await database.schema(Player.schema)
             .id()
+            .field("username", .string, .required)
             .create()
     }
     

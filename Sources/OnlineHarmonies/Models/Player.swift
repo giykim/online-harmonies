@@ -14,9 +14,13 @@ final class Player: Model, Content, @unchecked Sendable {
     @ID(key: .id)
     var id: UUID?
     
+    @Field(key: "username")
+    var username: String
+    
     init() { }
     
-    init(id: UUID? = nil) {
+    init(id: UUID? = nil, username: String) {
         self.id = id
+        self.username = username
     }
 }

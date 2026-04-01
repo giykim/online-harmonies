@@ -5,6 +5,6 @@
 </head>
 
 <body>
-    <h1>#(sessionId)</title>
+    <h1>#(sessionId)</h1>
 </body>
 </html>
