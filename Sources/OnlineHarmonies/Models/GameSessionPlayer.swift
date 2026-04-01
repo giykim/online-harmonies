@@ -22,9 +22,9 @@ final class GameSessionPlayer: Model, @unchecked Sendable {
     
     init() { }
     
-    init(id: UUID? = nil, gameSessionID: UUID, playerID: UUID) {
+    init(id: UUID? = nil, gameSessionId: UUID, playerId: UUID) {
         self.id = id
-        self.$gameSession.id = gameSessionID
-        self.$player.id = playerID
+        self.$gameSession.id = gameSessionId
+        self.$player.id = playerId
     }
 }

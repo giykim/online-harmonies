@@ -15,6 +15,7 @@ struct GameSessionController: RouteCollection {
         
         let games = routes.grouped("games")
         games.get(":sessionId", use: getGame)
+        games.post(":sessionId", "join", use: joinSession)
         games.webSocket(":sessionId", "ws", onUpgrade: handleWebSocket)
     }
     
@@ -71,5 +72,35 @@ struct GameSessionController: RouteCollection {
                 await GameRoomManager.shared.remove(ws, from: sessionId)
             }
         }
+    }
+    
+    func joinSession(req: Request) async throws -> HTTPStatus {
+        guard let sessionId = req.parameters.get("sessionId", as: UUID.self) else {
+            throw Abort(.badRequest)
+        }
+        
+        guard let playerIdString = req.session.data["playerId"],
+              let playerId = UUID(playerIdString) else {
+            throw Abort(.unauthorized)
+        }
+        
+        let sessionPlayer = GameSessionPlayer(gameSessionId: sessionId, playerId: playerId)
+        try await sessionPlayer.save(on: req.db)
+        
+        let sessionPlayers = try await GameSessionPlayer.query(on: req.db)
+            .filter(\.$gameSession.$id == sessionId)
+            .with(\.$player)
+            .all()
+        
+        struct PlayersMessage: Encodable {
+            let type: String
+            let players: [String]
+        }
+        
+        let usernames = sessionPlayers.map { $0.player.username }
+        let message = try JSONEncoder().encode(PlayersMessage(type: "players", players: usernames))
+        await GameRoomManager.shared.broadcast(String(data: message, encoding: .utf8) ?? "", to: sessionId)
+        
+        return .ok
     }
 }

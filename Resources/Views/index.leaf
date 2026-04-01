@@ -23,8 +23,11 @@
         }
         
         async function createPlayer() {
+            const username = document.getElementById("username").value
             const response = await fetch("/players/create", {
-                method: "POST"
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username: username })
             })
             
             const player = await response.json()

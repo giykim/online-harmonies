@@ -20,6 +20,8 @@ public func configure(_ app: Application) async throws {
 
     try await app.autoMigrate()
 
+    app.middleware.use(app.sessions.middleware)
+
     app.views.use(.leaf)
     app.leaf.cache.isEnabled = false
 

@@ -5,6 +5,34 @@
 </head>
 
 <body>
-    <h1>#(sessionId)</h1>
+    <h1>Session Id: #(sessionId)</h1>
+    
+    <h2>Players</h2>
+    <ul id="playerList"></ul>
+    
+    <script>
+        const sessionId = window.location.pathname.split("/")[2]
+        
+        const ws = new WebSocket("ws://" + window.location.host + "/games/" + sessionId + "/ws")
+        
+        ws.onopen = () => {
+            console.log("Connected to websocket")
+            joinSession()
+        }
+        
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data)
+            if (data.type === "players") {
+                const list = document.getElementById("playerList")
+                list.innerHTML = data.players.map(p => `<li>${p}</li>`).join("")
+            }
+        }
+        
+        async function joinSession() {
+            await fetch("/games/" + sessionId + "/join", {
+            method: "POST"
+            })
+        }
+    </script>
 </body>
 </html>
