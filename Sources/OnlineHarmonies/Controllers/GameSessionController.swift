@@ -64,8 +64,12 @@ struct GameSessionController: RouteCollection {
             return
         }
         
+        await GameRoomManager.shared.add(ws, to: sessionId)
+        
         ws.onClose.whenComplete { _ in
-            print("Client disconnected from session \(sessionId)")
+            Task {
+                await GameRoomManager.shared.remove(ws, from: sessionId)
+            }
         }
     }
 }
