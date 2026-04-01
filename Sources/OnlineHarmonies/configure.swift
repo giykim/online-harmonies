@@ -19,8 +19,6 @@ public func configure(_ app: Application) async throws {
     app.migrations.add(CreateTokens())
 
     try await app.autoMigrate()
-    
-    try app.register(collection: GameSessionController())
 
     app.views.use(.leaf)
     app.leaf.cache.isEnabled = false

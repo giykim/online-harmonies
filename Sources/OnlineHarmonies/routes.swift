@@ -12,4 +12,7 @@ func routes(_ app: Application) throws {
         let context = TokensContext(title: "Tokens Count", tokens: tokens)
         return try await req.view.render("index", context)
     }
+    
+    try app.register(collection: GameSessionController())
+    try app.register(collection: PlayerController())
 }
