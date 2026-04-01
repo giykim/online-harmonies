@@ -23,6 +23,7 @@ public func configure(_ app: Application) async throws {
     try app.register(collection: GameSessionController())
 
     app.views.use(.leaf)
+    app.leaf.cache.isEnabled = false
 
     // register routes
     try routes(app)
